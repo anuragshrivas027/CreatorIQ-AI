@@ -13,17 +13,31 @@ from utils.video_registry import (
 
 def process_youtube_video(url):
 
+    print(
+        f"Processing URL: {url}"
+    )
+
     video_data = get_youtube_data(
         url
+    )
+
+    print(
+        "YouTube data fetched successfully"
     )
 
     label = save_video(
         video_data
     )
 
-    transcript = video_data.get(
-        "transcript"
-    ) or ""
+    print(
+        f"Video label assigned: {label}"
+    )
+
+    transcript = (
+        video_data.get(
+            "transcript"
+        ) or ""
+    )
 
     metadata = {
         "video_id": label,
@@ -56,6 +70,10 @@ def process_youtube_video(url):
         )
     ):
 
+        print(
+            "Starting transcript processing"
+        )
+
         try:
 
             chunks_created = (
@@ -65,6 +83,10 @@ def process_youtube_video(url):
                 )
             )
 
+            print(
+                f"Chunks created: {chunks_created}"
+            )
+
         except Exception as e:
 
             print(
@@ -72,6 +94,16 @@ def process_youtube_video(url):
             )
 
             chunks_created = 0
+
+    else:
+
+        print(
+            "Transcript unavailable. Skipping RAG processing."
+        )
+
+    print(
+        "Returning API response"
+    )
 
     return {
         "video_label": label,
