@@ -30,20 +30,6 @@ def extract_video_id(url):
 
 def get_youtube_data(url):
 
-    ydl_opts = {
-        "quiet": True,
-        "noplaylist": True
-    }
-
-    with yt_dlp.YoutubeDL(
-        ydl_opts
-    ) as ydl:
-
-        info = ydl.extract_info(
-            url,
-            download=False
-        )
-
     video_id = extract_video_id(
         url
     )
@@ -76,6 +62,43 @@ def get_youtube_data(url):
             "Transcript unavailable: "
             "Invalid YouTube URL"
         )
+
+    info = {}
+
+    try:
+
+        ydl_opts = {
+            "quiet": True,
+            "noplaylist": True,
+            "extract_flat": False
+        }
+
+        with yt_dlp.YoutubeDL(
+            ydl_opts
+        ) as ydl:
+
+            info = ydl.extract_info(
+                url,
+                download=False
+            )
+
+    except Exception as e:
+
+        print(
+            f"YouTube Metadata Error: {e}"
+        )
+
+        info = {
+            "title": "Metadata unavailable",
+            "uploader": "Unknown Creator",
+            "channel_follower_count": 0,
+            "view_count": 0,
+            "like_count": 0,
+            "comment_count": 0,
+            "duration": 0,
+            "upload_date": "Unknown",
+            "description": ""
+        }
 
     description = (
         info.get("description")
