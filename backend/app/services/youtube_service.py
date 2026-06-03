@@ -100,9 +100,19 @@ def get_youtube_data(url):
     try:
 
         ydl_opts = {
-            "quiet": False,
+            "quiet": True,
             "noplaylist": True,
-            "extract_flat": False
+            "extract_flat": False,
+            "nocheckcertificate": True,
+            "geo_bypass": True,
+            "extractor_args": {
+                "youtube": {
+                    "player_client": [
+                        "android",
+                        "web"
+                    ]
+                }
+            }
         }
 
         with yt_dlp.YoutubeDL(
