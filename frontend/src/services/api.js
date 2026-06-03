@@ -1,119 +1,98 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000",
+  baseURL: "https://creatoriq-ai-production.up.railway.app",
 });
 
-export const uploadYoutubeVideo =
-  async (url) => {
+export const uploadYoutubeVideo = async (url) => {
+  const response = await API.post(
+    "/api/videos/youtube",
+    {
+      url,
+    }
+  );
 
-    const response =
-      await API.post(
-        "/api/videos/youtube",
-        {
-          url,
-        }
-      );
+  return response.data;
+};
 
-    return response.data;
-  };
+export const uploadInstagramVideo = async (url) => {
+  const response = await API.post(
+    "/api/videos/instagram",
+    {
+      url,
+    }
+  );
 
-export const uploadInstagramVideo =
-  async (url) => {
+  return response.data;
+};
 
-    const response =
-      await API.post(
-        "/api/videos/instagram",
-        {
-          url,
-        }
-      );
+export const askQuestion = async (question) => {
+  const response = await API.post(
+    "/api/chat/ask",
+    {
+      question,
+    }
+  );
 
-    return response.data;
-  };
+  return response.data;
+};
 
-export const askQuestion =
-  async (question) => {
+export const streamQuestion = async (
+  question,
+  onChunk
+) => {
+  const response = await fetch(
+    "https://creatoriq-ai-production.up.railway.app/api/chat/stream",
+    {
+      method: "POST",
 
-    const response =
-      await API.post(
-        "/api/chat/ask",
-        {
-          question,
-        }
-      );
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
 
-    return response.data;
-  };
+      body: JSON.stringify({
+        question,
+      }),
+    }
+  );
 
-export const streamQuestion =
-  async (
-    question,
-    onChunk
-  ) => {
+  if (!response.ok) {
+    throw new Error(
+      "Streaming request failed"
+    );
+  }
 
-    const response =
-      await fetch(
-        "http://127.0.0.1:8000/api/chat/stream",
-        {
-          method: "POST",
+  const reader =
+    response.body.getReader();
 
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
+  const decoder =
+    new TextDecoder();
 
-          body: JSON.stringify(
-            {
-              question,
-            }
-          ),
-        }
-      );
+  while (true) {
+    const {
+      done,
+      value,
+    } = await reader.read();
 
-    if (!response.ok) {
-
-      throw new Error(
-        "Streaming request failed"
-      );
-
+    if (done) {
+      break;
     }
 
-    const reader =
-      response.body.getReader();
-
-    const decoder =
-      new TextDecoder();
-
-    while (true) {
-
-      const {
-        done,
+    const chunk =
+      decoder.decode(
         value,
-      } =
-        await reader.read();
+        {
+          stream: true,
+        }
+      );
 
-      if (done) {
-
-        break;
-
-      }
-
-      const chunk =
-        decoder.decode(
-          value,
-          {
-            stream: true,
-          }
-        );
-
-      onChunk(chunk);
-    }
-  };
+    onChunk(chunk);
+  }
+};
 
 export const compareVideos =
   async () => {
-
     const response =
       await API.get(
         "/api/compare/"
