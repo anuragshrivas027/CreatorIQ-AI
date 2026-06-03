@@ -13,25 +13,38 @@ from services.metrics_service import (
 
 def extract_video_id(url):
 
-    pattern = (
-        r"(?:v=|\/)([0-9A-Za-z_-]{11}).*"
-    )
+    patterns = [
+        r"(?:v=)([0-9A-Za-z_-]{11})",
+        r"youtu\.be\/([0-9A-Za-z_-]{11})",
+        r"shorts\/([0-9A-Za-z_-]{11})"
+    ]
 
-    match = re.search(
-        pattern,
-        url
-    )
+    for pattern in patterns:
 
-    if match:
-        return match.group(1)
+        match = re.search(
+            pattern,
+            url
+        )
+
+        if match:
+
+            return match.group(1)
 
     return None
 
 
 def get_youtube_data(url):
 
+    print(
+        f"Processing URL: {url}"
+    )
+
     video_id = extract_video_id(
         url
+    )
+
+    print(
+        f"Video ID: {video_id}"
     )
 
     transcript_text = ""
@@ -39,6 +52,10 @@ def get_youtube_data(url):
     if video_id:
 
         try:
+
+            print(
+                f"Fetching transcript for: {video_id}"
+            )
 
             transcript = (
                 YouTubeTranscriptApi()
@@ -50,7 +67,15 @@ def get_youtube_data(url):
                 for item in transcript
             )
 
+            print(
+                f"Transcript fetched successfully. Length: {len(transcript_text)}"
+            )
+
         except Exception as e:
+
+            print(
+                f"Transcript Error: {e}"
+            )
 
             transcript_text = (
                 f"Transcript unavailable: {str(e)}"
@@ -59,16 +84,13 @@ def get_youtube_data(url):
     else:
 
         transcript_text = (
-            "Transcript unavailable: "
-            "Invalid YouTube URL"
+            "Transcript unavailable: Invalid YouTube URL"
         )
-
-    info = {}
 
     try:
 
         ydl_opts = {
-            "quiet": True,
+            "quiet": False,
             "noplaylist": True,
             "extract_flat": False
         }
@@ -82,23 +104,19 @@ def get_youtube_data(url):
                 download=False
             )
 
+        print(
+            "YouTube metadata fetched successfully"
+        )
+
     except Exception as e:
 
         print(
             f"YouTube Metadata Error: {e}"
         )
 
-        info = {
-            "title": "Metadata unavailable",
-            "uploader": "Unknown Creator",
-            "channel_follower_count": 0,
-            "view_count": 0,
-            "like_count": 0,
-            "comment_count": 0,
-            "duration": 0,
-            "upload_date": "Unknown",
-            "description": ""
-        }
+        raise Exception(
+            f"YouTube Metadata Error: {e}"
+        )
 
     description = (
         info.get("description")
