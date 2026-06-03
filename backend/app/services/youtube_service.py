@@ -44,7 +44,7 @@ def get_youtube_data(url):
     )
 
     print(
-        f"Video ID: {video_id}"
+        f"Extracted Video ID: {video_id}"
     )
 
     transcript_text = ""
@@ -62,19 +62,27 @@ def get_youtube_data(url):
                 .fetch(video_id)
             )
 
+            print(
+                f"Transcript object length: {len(transcript)}"
+            )
+
             transcript_text = " ".join(
                 item.text
                 for item in transcript
             )
 
             print(
-                f"Transcript fetched successfully. Length: {len(transcript_text)}"
+                f"Transcript length: {len(transcript_text)}"
             )
 
         except Exception as e:
 
             print(
-                f"Transcript Error: {e}"
+                f"TRANSCRIPT FAILURE: {type(e).__name__}"
+            )
+
+            print(
+                f"TRANSCRIPT ERROR: {str(e)}"
             )
 
             transcript_text = (
@@ -86,6 +94,8 @@ def get_youtube_data(url):
         transcript_text = (
             "Transcript unavailable: Invalid YouTube URL"
         )
+
+    info = {}
 
     try:
 
@@ -114,9 +124,17 @@ def get_youtube_data(url):
             f"YouTube Metadata Error: {e}"
         )
 
-        raise Exception(
-            f"YouTube Metadata Error: {e}"
-        )
+        info = {
+            "title": "Metadata unavailable",
+            "uploader": "Unknown Creator",
+            "channel_follower_count": 0,
+            "view_count": 0,
+            "like_count": 0,
+            "comment_count": 0,
+            "duration": 0,
+            "upload_date": "Unknown",
+            "description": ""
+        }
 
     description = (
         info.get("description")
