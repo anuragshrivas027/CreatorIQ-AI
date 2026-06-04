@@ -272,22 +272,19 @@ CreatorIQ-AI
 │
 │   ├── app
 │   │
-│   │   ├── main.py
-│   │   │
-│   │   │   FastAPI application entry point.
-│   │   │   Registers routes, middleware,
-│   │   │   CORS configuration and API startup.
+│   ├── main.py
+│   │   FastAPI application entry point.
 │   │
-│   │   ├── models
-│   │   │
+│   ├── models
+│   │
 │   │   ├── video_model.py
 │   │   │   Request schema for video URLs.
 │   │   │
 │   │   └── chat_model.py
 │   │       Request schema for chat questions.
 │   │
-│   │   ├── routes
-│   │   │
+│   ├── routes
+│   │
 │   │   ├── video_routes.py
 │   │   │   YouTube and Instagram endpoints.
 │   │   │
@@ -297,8 +294,8 @@ CreatorIQ-AI
 │   │   └── chat_routes.py
 │   │       Chat and streaming endpoints.
 │   │
-│   │   ├── services
-│   │   │
+│   ├── services
+│   │
 │   │   ├── youtube_service.py
 │   │   │   YouTube transcript and metadata extraction.
 │   │   │
@@ -315,8 +312,8 @@ CreatorIQ-AI
 │   │   └── metrics_service.py
 │   │       Engagement rate calculations.
 │   │
-│   │   ├── rag
-│   │   │
+│   ├── rag
+│   │
 │   │   ├── rag_pipeline.py
 │   │   │   Core Retrieval-Augmented Generation workflow.
 │   │   │
@@ -341,15 +338,14 @@ CreatorIQ-AI
 │   │   └── prompt_templates.py
 │   │       AI system prompts.
 │   │
-│   │   └── utils
-│   │
-│   │       └── video_registry.py
-│   │           Stores Video A and Video B.
+│   └── utils
+│
+│       └── video_registry.py
+│           Stores Video A and Video B.
 │
 ├── frontend
 │
 │   ├── public
-│   │
 │   │   Static frontend assets.
 │   │
 │   ├── src
@@ -366,29 +362,52 @@ CreatorIQ-AI
 │   │       Backend communication layer.
 │   │
 │   │   ├── components
-│   │   │
 │   │   │   Reusable UI components.
-│   │
+│   │   │
 │   │   ├── pages
-│   │   │
 │   │   │   Application views.
-│   │
-│   │   ├── assets
 │   │   │
+│   │   ├── assets
 │   │   │   Images and static resources.
-│   │
+│   │   │
 │   │   └── styles
-│   │
 │   │       Styling and layouts.
 │
+├── screenshots
+│
+│   ├── architecture.png
+│   │   High-level system architecture diagram.
+│   │
+│   ├── dashboard.png
+│   │   Main application dashboard.
+│   │
+│   ├── video-a-analysis.png
+│   │   Video A analysis results.
+│   │
+│   ├── video-b-analysis.png
+│   │   Video B analysis results.
+│   │
+│   ├── comparison-report.png
+│   │   AI-generated comparison report.
+│   │
+│   └── rag-chat.png
+│       RAG-powered AI Video Analyst chat.
+│
 ├── requirements.txt
+│   Backend dependencies.
+│
 ├── package.json
+│   Frontend dependencies.
+│
 ├── .env.example
+│   Example environment variables.
+│
 ├── README.md
+│   Project documentation.
+│
 └── .gitignore
+    Git exclusion rules.
 ```
-
----
 
 # Engineering Decisions and Trade-Offs
 
