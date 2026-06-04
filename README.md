@@ -32,6 +32,7 @@ The demonstration video covers:
 * Production Upgrade Path
 
 ---
+# Production Deployment
 
 # Live Application
 
@@ -697,34 +698,96 @@ Phase 6
 * Vercel
 
 ---
-
 # Installation and Local Setup
 
 ## Clone Repository
 
-git clone ...
+```bash
+git clone https://github.com/anuragshrivas027/CreatorIQ-AI.git
 
-...
+cd CreatorIQ-AI
+```
 
-Frontend URL:
+## Backend Setup
 
-http://localhost:5173
+### Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Virtual Environment
+
+Windows
+
+```bash
+venv\Scripts\activate
+```
+
+### Install Backend Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+CHROMA_DB_PATH=./chroma_db
+```
+
+### Run FastAPI Backend
+
+```bash
+cd backend/app
+
+uvicorn main:app --reload
+```
+
+Backend URL:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger API Documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
 
 ---
 
-## Production Deployment
+## Frontend Setup
 
-Frontend (Vercel)
+Open a new terminal.
 
-https://creator-iq-ai.vercel.app/
+### Navigate to Frontend
 
-Backend (Railway)
+```bash
+cd frontend
+```
 
-https://creatoriq-ai-production.up.railway.app/
+### Install Frontend Dependencies
 
-API Documentation
+```bash
+npm install
+```
 
-https://creatoriq-ai-production.up.railway.app/docs
+### Run Frontend
+
+```bash
+npm run dev
+```
+
+Frontend URL:
+
+```text
+http://localhost:5173
+```
 
 ---
 
