@@ -1,21 +1,5 @@
 # CreatorIQ AI - Full Stack RAG Video Intelligence Platform
 
-## Live Application
-
-### Frontend (Vercel)
-
-https://creator-iq-ai.vercel.app/
-
-### Backend (Railway)
-
-https://creatoriq-ai-production.up.railway.app/
-
-### API Documentation
-
-https://creatoriq-ai-production.up.railway.app/docs
-
----
-
 # Project Overview
 
 CreatorIQ AI is a Full Stack AI-powered Video Intelligence Platform that analyzes and compares YouTube videos and Instagram Reels using Retrieval-Augmented Generation (RAG), Vector Search, Embeddings, and Large Language Models.
@@ -25,6 +9,43 @@ The objective of this project was not simply to connect APIs together. The goal 
 The platform accepts two social media video URLs, extracts transcripts and metadata, calculates engagement metrics, stores transcript embeddings in a vector database, and enables users to interact with an AI Video Analyst capable of answering context-aware questions grounded in actual video content.
 
 This project was built to demonstrate engineering decision-making, system design, retrieval quality, deployment considerations, and scalability planning rather than simply demonstrating API integrations.
+
+---
+
+# Project Demonstration Video
+
+Project Walkthrough Video
+
+https://drive.google.com/file/d/1SWZdUrFZBPm8kdCwnS3djyp1ZEjYPgPG/view?usp=sharing
+
+The demonstration video covers:
+
+* End-to-End Application Workflow
+* YouTube Video Analysis
+* Instagram Reel Analysis
+* AI-Powered Video Comparison
+* Retrieval-Augmented Generation (RAG)
+* ChromaDB Vector Search
+* Conversational AI Video Analyst
+* Engineering Decisions and Trade-Offs
+* Scalability Considerations
+* Production Upgrade Path
+
+---
+
+# Live Application
+
+## Frontend (Vercel)
+
+https://creator-iq-ai.vercel.app/
+
+## Backend (Railway)
+
+https://creatoriq-ai-production.up.railway.app/
+
+## API Documentation
+
+https://creatoriq-ai-production.up.railway.app/docs
 
 ---
 
