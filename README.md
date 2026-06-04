@@ -16,41 +16,72 @@ https://creatoriq-ai-production.up.railway.app/docs
 
 ---
 
-## Project Overview
+# Project Overview
 
-CreatorIQ AI is a Full Stack AI-powered Video Intelligence Platform that analyzes and compares YouTube videos and Instagram Reels using Retrieval-Augmented Generation (RAG), Vector Search, Embeddings, and Large Language Models.
+CreatorIQ AI is a Full Stack AI-powered Video Intelligence Platform built to analyze, compare, and understand social media video performance using Retrieval-Augmented Generation (RAG), Vector Search, Embeddings, and Large Language Models.
 
-The goal of this project was not simply to connect APIs together. The objective was to build a system capable of understanding video content, retrieving relevant transcript information, comparing creator performance, maintaining conversational memory, and generating actionable insights for content creators.
+The platform allows creators, marketers, and analysts to upload two social media video URLs and receive detailed AI-powered insights about engagement, content quality, creator performance, hooks, storytelling, audience interaction, and content strategy.
 
-The platform accepts two social media video URLs, extracts transcripts and metadata, calculates engagement metrics, stores transcript embeddings in a vector database, and allows users to interact with an AI Video Analyst capable of answering context-aware questions about performance, hooks, audience behavior, content strategy, and optimization opportunities.
+Unlike a traditional chatbot, CreatorIQ AI combines transcript intelligence, metadata analysis, vector retrieval, memory-aware conversations, and AI reasoning to provide grounded responses supported by video content.
+
+The objective of this project was not simply to connect APIs together. The goal was to build a complete end-to-end system capable of:
+
+- Extracting video metadata
+- Extracting transcripts
+- Generating embeddings
+- Building a searchable knowledge base
+- Performing semantic retrieval
+- Maintaining conversation memory
+- Comparing creator performance
+- Generating actionable recommendations
+
+The final result is a production-style Full Stack RAG application deployed on Railway and Vercel.
 
 ---
 
-## Challenge Requirements Covered
+# Challenge Requirements Covered
 
-### Supported Platforms
+## Supported Platforms
 
-* YouTube Videos
-* YouTube Shorts
-* Instagram Reels
+- YouTube Videos
+- YouTube Shorts
+- Instagram Reels
 
-### Extracted Information
+## Input
 
-For every video, the system attempts to collect:
+The application accepts:
 
-* Video Title
-* Creator Name
-* Follower Count
-* Views
-* Likes
-* Comments
-* Upload Date
-* Duration
-* Hashtags
-* Description
-* Transcript
+- Video URL A
+- Video URL B
 
-### Engagement Rate Calculation
+Supported combinations:
+
+- YouTube vs YouTube
+- Instagram vs Instagram
+- YouTube vs Instagram
+- Instagram vs YouTube
+
+---
+
+# Metadata Extracted
+
+For every video the system attempts to extract:
+
+- Video Title
+- Creator Name
+- Follower Count
+- Views
+- Likes
+- Comments
+- Duration
+- Upload Date
+- Description
+- Hashtags
+- Transcript
+
+---
+
+# Engagement Rate Calculation
 
 The platform automatically calculates:
 
@@ -58,82 +89,123 @@ The platform automatically calculates:
 Engagement Rate = ((Likes + Comments) / Views) × 100
 ```
 
-This metric is used throughout the comparison and recommendation pipeline.
+This metric is used throughout the comparison engine and recommendation workflow.
 
 ---
 
-## What The Application Can Do
+# Core Features
 
-### Analyze Individual Videos
+## Video Analysis
 
 Users can upload:
 
-* One YouTube Video
-* One Instagram Reel
+- One YouTube Video
+- One Instagram Reel
 
 and receive:
 
-* Transcript Intelligence
-* Metadata Analysis
-* Engagement Metrics
-* Creator Information
+- Transcript Analysis
+- Metadata Analysis
+- Engagement Metrics
+- Creator Information
+- Performance Insights
 
-### Compare Two Videos
+---
 
-Supported Combinations:
+## AI Video Comparison
 
-* YouTube vs YouTube
-* Instagram vs Instagram
-* YouTube vs Instagram
-* Instagram vs YouTube
+The system compares Video A and Video B and generates:
 
-The AI comparison engine generates:
+- Winner Selection
+- Engagement Analysis
+- Hook Analysis
+- Creator Analysis
+- Transcript Analysis
+- Recommendations
+- Action Plan
+- Final Verdict
 
-* Winner Selection
-* Engagement Analysis
-* Hook Analysis
-* Creator Analysis
-* Recommendations
-* Action Plan
-* Final Verdict
+The comparison engine uses actual transcript context and engagement data instead of relying purely on metadata.
 
-### AI Video Analyst Chat
+---
 
-The chatbot can answer questions such as:
+## Retrieval-Augmented Generation (RAG)
 
-* Why did Video A outperform Video B?
-* What is the engagement rate of each video?
-* Compare the hooks in the first few seconds.
-* Suggest improvements for Video B.
-* Which creator has stronger audience engagement?
-* What transcript evidence supports this conclusion?
-* Compare storytelling approaches.
-* What content strategy should be reused?
+Transcripts are:
 
-### Conversational Memory
+1. Extracted
+2. Chunked
+3. Embedded
+4. Stored in ChromaDB
+
+When a user asks a question:
+
+1. Relevant chunks are retrieved
+2. Context is assembled
+3. Gemini receives only the relevant information
+4. Grounded responses are generated
+
+This significantly reduces hallucinations and improves factual accuracy.
+
+---
+
+## AI Video Analyst Chat
+
+Example Questions:
+
+- Why did Video A outperform Video B?
+- What is the engagement rate of each video?
+- Compare the hooks used in both videos.
+- Suggest improvements for Video B.
+- Which creator has stronger audience engagement?
+- What transcript evidence supports this conclusion?
+- Compare storytelling approaches.
+- What content strategy should be reused?
+
+---
+
+## Conversation Memory
 
 The chatbot maintains memory across multiple interactions.
 
 Example:
 
 User:
+
+```text
 Which video performed better?
+```
 
 User:
+
+```text
 Why?
+```
 
 User:
-Give three improvements.
 
-The chatbot remembers previous context and continues the conversation naturally.
+```text
+Give me three improvements.
+```
 
-### Streaming Responses
-
-AI responses are streamed in real time using FastAPI StreamingResponse, reducing perceived latency and improving user experience.
+The system remembers previous conversation context and continues naturally.
 
 ---
 
-## System Architecture
+## Streaming Responses
+
+Responses are streamed using FastAPI StreamingResponse.
+
+Benefits:
+
+- Reduced perceived latency
+- Better user experience
+- Real-time answer generation
+- Improved responsiveness
+
+---
+
+# System Architecture
 
 ```text
 User
@@ -164,7 +236,7 @@ Embedding Generation
 
 ↓
 
-ChromaDB Vector Store
+ChromaDB Vector Database
 
 ↓
 
@@ -181,131 +253,297 @@ AI Insights & Recommendations
 
 ---
 
-## Technology Stack
+# Technology Stack
 
-### Frontend
+## Frontend
 
-* React
-* Vite
-* JavaScript
-* Axios
+- React
+- Vite
+- JavaScript
+- Axios
 
-### Backend
+## Backend
 
-* Python
-* FastAPI
-* Uvicorn
+- Python
+- FastAPI
+- Uvicorn
 
-### AI & RAG
+## AI & RAG
 
-* LangChain
-* Gemini 2.5 Flash
-* Sentence Transformers
+- LangChain
+- Gemini 2.5 Flash
+- Sentence Transformers
 
-### Vector Database
+## Vector Database
 
-* ChromaDB
+- ChromaDB
 
-### Video Processing
+## Video Processing
 
-* yt-dlp
-* youtube-transcript-api
+- yt-dlp
+- youtube-transcript-api
 
-### Deployment
+## Deployment
 
-* Railway
-* Vercel
+- Railway
+- Vercel
 
-### Development Tools
+## Development Tools
 
-* Visual Studio Code
-* Git
-* GitHub
+- Visual Studio Code
+- Git
+- GitHub
 
 ---
 
-## Project Structure
+# Complete Project Structure
 
 ```text
 CreatorIQ-AI
 
 ├── backend
+│
 │   ├── app
+│   │
+│   │   ├── main.py
+│   │   │
+│   │   │   FastAPI application entry point.
+│   │   │   Registers routes, middleware,
+│   │   │   CORS configuration and API startup.
+│   │
 │   │   ├── models
-│   │   ├── rag
+│   │   │
+│   │   ├── video_model.py
+│   │   │   Request schema for video URLs.
+│   │   │
+│   │   └── chat_model.py
+│   │       Request schema for chat questions.
+│   │
 │   │   ├── routes
+│   │   │
+│   │   ├── video_routes.py
+│   │   │   YouTube and Instagram endpoints.
+│   │   │
+│   │   ├── compare_routes.py
+│   │   │   Video comparison endpoint.
+│   │   │
+│   │   └── chat_routes.py
+│   │       Chat and streaming endpoints.
+│   │
 │   │   ├── services
-│   │   ├── utils
-│   │   └── main.py
+│   │   │
+│   │   ├── youtube_service.py
+│   │   │   YouTube transcript and metadata extraction.
+│   │   │
+│   │   ├── instagram_service.py
+│   │   │   Instagram Reel metadata extraction.
+│   │   │
+│   │   ├── video_processing_service.py
+│   │   │   Coordinates transcript processing,
+│   │   │   vector storage and metadata preparation.
+│   │   │
+│   │   ├── comparison_service.py
+│   │   │   AI-powered video comparison engine.
+│   │   │
+│   │   └── metrics_service.py
+│   │       Engagement rate calculations.
+│   │
+│   │   ├── rag
+│   │   │
+│   │   ├── rag_pipeline.py
+│   │   │   Core Retrieval-Augmented Generation workflow.
+│   │   │
+│   │   ├── process_video.py
+│   │   │   Transcript processing pipeline.
+│   │   │
+│   │   ├── text_splitter.py
+│   │   │   Transcript chunk generation.
+│   │   │
+│   │   ├── embedding_service.py
+│   │   │   Embedding generation using
+│   │   │   all-MiniLM-L6-v2.
+│   │   │
+│   │   ├── chroma_client.py
+│   │   │   ChromaDB initialization.
+│   │   │
+│   │   ├── vector_store.py
+│   │   │   Vector insertion and retrieval.
+│   │   │
+│   │   ├── memory_manager.py
+│   │   │   Conversation memory management.
+│   │   │
+│   │   └── prompt_templates.py
+│   │       AI system prompts.
+│   │
+│   │   └── utils
+│   │
+│   │       └── video_registry.py
+│   │           Stores Video A and Video B.
 │
 ├── frontend
+│
 │   ├── public
+│   │
+│   │   Static frontend assets.
+│   │
 │   ├── src
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── pages
-│   │   ├── services
+│   │
+│   │   ├── main.jsx
+│   │   │   React entry point.
+│   │   │
 │   │   ├── App.jsx
-│   │   └── main.jsx
+│   │   │   Root application component.
+│   │   │
+│   │   ├── services
+│   │   │
+│   │   └── api.js
+│   │       Backend communication layer.
+│   │
+│   │   ├── components
+│   │   │
+│   │   │   Reusable UI components.
+│   │
+│   │   ├── pages
+│   │   │
+│   │   │   Application views.
+│   │
+│   │   ├── assets
+│   │   │
+│   │   │   Images and static resources.
+│   │
+│   │   └── styles
+│   │
+│   │       Styling and layouts.
 │
 ├── requirements.txt
-├── README.md
+│
+│   Backend dependencies.
+│
+├── package.json
+│
+│   Frontend dependencies.
+│
 ├── .env.example
+│
+│   Example environment variables.
+│
+├── README.md
+│
+│   Project documentation.
+│
 └── .gitignore
+│
+    Git exclusion rules.
 ```
 
 ---
 
-## Why I Chose ChromaDB
+# End-to-End Data Flow
+
+```text
+User Uploads Video URL
+
+↓
+
+video_routes.py
+
+↓
+
+youtube_service.py / instagram_service.py
+
+↓
+
+video_processing_service.py
+
+↓
+
+process_video.py
+
+↓
+
+text_splitter.py
+
+↓
+
+embedding_service.py
+
+↓
+
+vector_store.py
+
+↓
+
+ChromaDB
+
+↓
+
+rag_pipeline.py
+
+↓
+
+Gemini 2.5 Flash
+
+↓
+
+Final AI Response
+```
+
+---
+
+# Why I Chose ChromaDB
 
 For this challenge, I intentionally selected ChromaDB instead of Pinecone or Qdrant.
 
-The primary reason was development speed and simplicity. I wanted a vector database that could run locally without requiring additional cloud infrastructure while I focused on transcript retrieval quality and the RAG workflow.
+Reasons:
 
-Advantages:
-
-* Open Source
-* Lightweight
-* Easy Setup
-* Strong LangChain Integration
-* No External Infrastructure Required
+- Open Source
+- Lightweight
+- Easy Local Setup
+- Strong LangChain Integration
+- No Additional Infrastructure Required
 
 Trade-Off:
 
-While ChromaDB is excellent for development and prototyping, I would migrate to Qdrant or Pinecone for production-scale workloads because they offer better horizontal scalability, distributed retrieval, monitoring, and operational reliability.
+For large-scale production workloads, I would migrate to:
+
+- Pinecone
+- Qdrant
+- Weaviate
+
+for better scalability, distributed retrieval, monitoring, and operational reliability.
 
 ---
 
-## Why I Chose LangChain
+# Why I Chose LangChain
 
-LangChain simplified the orchestration layer by providing:
+LangChain simplified:
 
-* Prompt Management
-* Retrieval Pipelines
-* Output Parsing
-* Conversation Management
-* Streaming Support
-* Memory Integration
+- Prompt Management
+- Retrieval Pipelines
+- Output Parsing
+- Memory Management
+- Streaming Responses
+- Context Assembly
 
-Instead of building custom retrieval pipelines from scratch, LangChain allowed me to focus on retrieval quality and application logic.
-
----
-
-## Why I Chose Gemini 2.5 Flash
-
-Gemini 2.5 Flash was selected because:
-
-* Fast inference speed
-* Strong reasoning capabilities
-* Lower latency
-* Cost-effective deployment
-* Excellent transcript analysis performance
-
-For creator analytics, it provides a strong balance between quality, speed, and cost.
+Instead of building retrieval orchestration manually, LangChain allowed faster development and cleaner architecture.
 
 ---
 
-## Embedding Strategy
+# Why I Chose Gemini 2.5 Flash
+
+Gemini 2.5 Flash provides:
+
+- Fast inference speed
+- Strong reasoning capabilities
+- Lower latency
+- Good transcript understanding
+- Cost-effective deployment
+
+For creator analytics, it provides an excellent balance of quality, speed, and cost.
+
+---
+
+# Embedding Strategy
 
 Embedding Model:
 
@@ -315,11 +553,11 @@ all-MiniLM-L6-v2
 
 Reasons:
 
-* Lightweight
-* Fast
-* Free
-* Good semantic retrieval quality
-* Low infrastructure requirements
+- Lightweight
+- Fast
+- Free
+- High-quality semantic retrieval
+- Low infrastructure cost
 
 Embedding Dimension:
 
@@ -327,11 +565,9 @@ Embedding Dimension:
 384
 ```
 
-This model was sufficient for transcript retrieval while keeping embedding generation efficient.
-
 ---
 
-## Chunking Strategy
+# Chunking Strategy
 
 Current Configuration:
 
@@ -340,270 +576,184 @@ CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 200
 ```
 
-This decision was made after evaluating the trade-off between context preservation and retrieval precision.
+Trade-Off Analysis:
 
 Smaller Chunks:
 
-* Better retrieval precision
-* Increased risk of losing context
+- Better retrieval precision
+- Less context
 
 Larger Chunks:
 
-* Better context retention
-* Reduced retrieval relevance
+- Better context retention
+- Lower retrieval precision
 
-The selected configuration provided a balanced approach for transcript-based retrieval.
-
-The overlap helps preserve meaning between adjacent chunks and prevents important information from being split across chunk boundaries.
+The selected configuration provides a balanced solution for transcript retrieval.
 
 ---
 
-## Retrieval-Augmented Generation (RAG)
+# Development Journey
 
-Pipeline:
+The project evolved through multiple phases:
 
-```text
-Transcript
+Phase 1
 
-↓
+- Frontend setup
+- Backend setup
+- API integration
 
-Chunking
+Phase 2
 
-↓
+- YouTube extraction
+- Instagram extraction
+- Engagement calculations
 
-Embeddings
+Phase 3
 
-↓
+- ChromaDB integration
+- Embedding generation
+- Transcript chunking
 
-ChromaDB
+Phase 4
 
-↓
+- LangChain orchestration
+- RAG implementation
+- Memory integration
 
-Similarity Search
+Phase 5
 
-↓
+- AI comparison engine
+- Streaming responses
+- Deployment
 
-Relevant Chunks Retrieved
+Phase 6
 
-↓
-
-Gemini 2.5 Flash
-
-↓
-
-Grounded Response
-```
-
-Why RAG?
-
-Without retrieval, the system would need to send entire transcripts to the LLM repeatedly.
-
-RAG reduces:
-
-* Token consumption
-* Latency
-* Cost
-
-while improving factual grounding.
+- Railway deployment
+- Vercel deployment
+- Production debugging
+- Performance optimization
 
 ---
 
-## Development Journey
+# Software Installed During Development
 
-This project went through multiple iterations during development.
+## Operating System
 
-Initially, the focus was on transcript extraction and metadata processing.
+- Windows
 
-Once video ingestion worked reliably, the next phase involved:
+## Development Environment
 
-* Chunking strategy selection
-* Embedding generation
-* ChromaDB integration
-* LangChain orchestration
-* Conversational memory
-* Streaming responses
+- Visual Studio Code
+- Git
+- GitHub
 
-Deployment introduced additional engineering challenges involving dependency management, transcript extraction reliability, cloud deployment behavior, environment variables, API integration, and production debugging.
+## Frontend
 
-The final deployed system successfully supports transcript retrieval, video comparison, conversational memory, and AI-powered creator insights.
+- Node.js
+- npm
+- React
+- Vite
+- Axios
 
----
+## Backend
 
-## Software Installed During Development
+- Python
+- FastAPI
+- Uvicorn
+- LangChain
+- ChromaDB
+- Sentence Transformers
+- yt-dlp
+- youtube-transcript-api
+- python-dotenv
 
-### Operating System
+## AI Services
 
-* Windows
+- Google Gemini 2.5 Flash
 
-### Development Environment
+## Deployment Platforms
 
-* Visual Studio Code
-* Git
-* GitHub
-
-### Frontend
-
-* Node.js
-* npm
-* React
-* Vite
-* Axios
-
-### Backend
-
-* Python
-* FastAPI
-* Uvicorn
-* LangChain
-* LangChain Google GenAI
-* ChromaDB
-* Sentence Transformers
-* yt-dlp
-* youtube-transcript-api
-* python-dotenv
-
-### AI Services
-
-* Google Gemini 2.5 Flash
-
-### Deployment Platforms
-
-* Railway
-* Vercel
+- Railway
+- Vercel
 
 ---
 
-## Installation Guide
+# Testing Completed
 
-### Clone Repository
+Successfully Tested:
 
-```bash
-git clone <repository-url>
+- YouTube vs YouTube
+- Instagram vs Instagram
+- YouTube vs Instagram
+- Instagram vs YouTube
 
-cd CreatorIQ-AI
-```
+Verified Features:
 
-### Create Virtual Environment
-
-```bash
-python -m venv venv
-```
-
-### Activate Virtual Environment
-
-```bash
-venv\Scripts\activate
-```
-
-### Install Backend Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### Create Environment Variables
-
-Create a `.env` file:
-
-```env
-GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-CHROMA_DB_PATH=./chroma_db
-```
-
-### Run Backend
-
-```bash
-cd backend/app
-
-uvicorn main:app --reload
-```
-
-Backend URL:
-
-```text
-http://127.0.0.1:8000
-```
-
-### Run Frontend
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
-Frontend URL:
-
-```text
-http://localhost:5173
-```
+- Transcript Extraction
+- Metadata Extraction
+- Engagement Calculation
+- ChromaDB Storage
+- Semantic Retrieval
+- AI Comparison
+- Conversational Memory
+- Streaming Responses
+- Frontend Deployment
+- Backend Deployment
 
 ---
 
-## Scalability Considerations
+# What Breaks At 10,000 Users?
 
-Current Architecture:
+Potential bottlenecks:
 
-* FastAPI
-* LangChain
-* ChromaDB
-* Gemini Flash
-* In-Memory Conversation Storage
+## Memory Storage
 
-This architecture is suitable for development, prototyping, demonstrations, and small-to-medium workloads.
+Current:
 
----
+- In-memory storage
 
-## What Breaks At 10,000 Users?
+Production:
 
-The first bottlenecks would likely be:
+- Redis
 
-### In-Memory Conversation Storage
+## ChromaDB
 
-Current memory is stored in application memory.
+Current:
 
-A restart would clear conversation history.
+- Single-node vector database
 
-Production Solution:
+Production:
 
-* Redis
+- Pinecone
+- Qdrant
 
-### ChromaDB
+## Embedding Generation
 
-While ChromaDB works well for development, production workloads would benefit from:
+Current:
 
-* Pinecone
-* Qdrant
-* Weaviate
+- Synchronous
 
-### Embedding Generation
+Production:
 
-Generating embeddings synchronously for every upload becomes expensive at scale.
+- Background queues
+- Worker services
+- Caching
 
-Production Solution:
+## Backend Scaling
 
-* Background workers
-* Embedding cache
-* Queue-based processing
+Current:
 
-### Single Backend Instance
+- Single FastAPI instance
 
-A single FastAPI instance becomes a bottleneck.
+Production:
 
-Production Solution:
-
-* Docker Containers
-* Load Balancers
-* Kubernetes
-* Horizontal Scaling
+- Docker
+- Kubernetes
+- Load Balancers
 
 ---
 
-## Production Upgrade Path
-
-If this platform were supporting thousands of creators daily, I would redesign the architecture as:
+# Production Upgrade Path
 
 ```text
 React Frontend
@@ -633,84 +783,41 @@ Pinecone / Qdrant
 Gemini
 ```
 
-This would provide better scalability, reliability, and operational control.
-
 ---
 
-## Testing Completed
-
-Successfully Verified:
-
-* YouTube vs YouTube
-* Instagram vs Instagram
-* YouTube vs Instagram
-* Instagram vs YouTube
-
-Verified Features:
-
-* Video Analysis
-* Transcript Extraction
-* Metadata Extraction
-* Engagement Calculation
-* AI Comparison
-* RAG Retrieval
-* Conversational Memory
-* Streaming Responses
-* Frontend Deployment
-* Backend Deployment
-
----
-
-## Future Improvements
-
-* TikTok Support
-* Persistent User Sessions
-* Authentication
-* Redis-Based Memory
-* Pinecone Integration
-* Qdrant Integration
-* Trend Analysis
-* Sentiment Analysis
-* Creator Benchmarking
-* Audience Segmentation
-* Multi-Language Support
-* Advanced Analytics Dashboard
-
----
-
-## Engineering Notes
+# Engineering Notes
 
 This project was built with a focus on engineering trade-offs rather than simply connecting APIs together.
 
 Important considerations included:
 
-* Retrieval Quality
-* Cost Optimization
-* Latency
-* Scalability
-* Maintainability
-* Explainability
-* Deployment Reliability
+- Retrieval Quality
+- Cost Optimization
+- Latency
+- Scalability
+- Maintainability
+- Explainability
+- Deployment Reliability
 
-Every major decision in the project can be defended through performance, maintainability, scalability, or cost considerations.
+Every major technical decision can be defended through performance, maintainability, scalability, or cost considerations.
 
 The goal was not only to make the system work, but to understand:
 
-* Why this vector database was selected
-* Why this chunk size was selected
-* What breaks at scale
-* How the architecture evolves in production
-* Which trade-offs were made and why
+- Why this vector database was selected
+- Why this chunk size was selected
+- What breaks at scale
+- How the architecture evolves in production
+- Which trade-offs were made and why
 
-Those considerations guided the design and implementation of this project from start to finish.
+This project reflects the engineering mindset required to build systems that work today while remaining adaptable for tomorrow.
 
 ---
 
-## Author
+# Author
 
 Author: Anurag Shrivas
 
-Email: [anuragshrivas357@gmail.com](mailto:anuragshrivas357@gmail.com)
+Email: anuragshrivas357@gmail.com
 
 Contact: +91 7089385383
 
