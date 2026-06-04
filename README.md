@@ -698,6 +698,36 @@ Phase 6
 
 ---
 
+# Installation and Local Setup
+
+## Clone Repository
+
+git clone ...
+
+...
+
+Frontend URL:
+
+http://localhost:5173
+
+---
+
+## Production Deployment
+
+Frontend (Vercel)
+
+https://creator-iq-ai.vercel.app/
+
+Backend (Railway)
+
+https://creatoriq-ai-production.up.railway.app/
+
+API Documentation
+
+https://creatoriq-ai-production.up.railway.app/docs
+
+---
+
 # Testing Completed
 
 Successfully Tested:
